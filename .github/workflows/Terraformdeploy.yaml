@@ -20,7 +20,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: "1.7.6"
+          terraform_version: "1.7.5"
       
       #Connect to remote backend to store terraform state file
       - name: Terraform Init
@@ -44,7 +44,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: "1.7.6"
+          terraform_version: "1.7.5"
 
       - name: Terraform Init
         run: terraform init
