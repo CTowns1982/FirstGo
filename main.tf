@@ -1,5 +1,11 @@
 terraform {
   required_version = ">= 1.7.5"
+
+  backend "s3" {
+    bucket         = "ctprodterraform" # Must be pre-created in AWS
+    key            = "environments/production/terraform.tfstate"
+    region         = "eu-west-2"
+  }
   
   required_providers {
     aws = {
