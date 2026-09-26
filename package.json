@@ -2,7 +2,7 @@
   "name": "actions-demo",
   "version": "1.0.0",
   "scripts": {
-    "lint": "echo 'Running linting checks... Code looks clean!'",
+    "lint": "echo 'Running linting checks... Code looks clean!'", 
     "test": "echo 'Running unit tests... 100% passing!'",
     "build": "echo 'Building production assets... Done!'"
   }
