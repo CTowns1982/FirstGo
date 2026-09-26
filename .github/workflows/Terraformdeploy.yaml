@@ -33,7 +33,7 @@ jobs:
   terraform-apply:
     name: deploy-to-production
     needs: terraform-plan #prevent apply until plan is successful
-    runs-on:ubuntu-latestt
+    runs-on: ubuntu-latest
 
     environment: production
 
