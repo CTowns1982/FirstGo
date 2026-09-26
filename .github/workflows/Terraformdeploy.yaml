@@ -4,13 +4,15 @@ on:
     branches:
       - main
 
+env:
+    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
+    AWS_REGION: eu-west-2
+
 jobs:
   terraform-plan:
     runs-on: ubuntu-latest
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
-      AWS_REGION: eu-west-2
+ 
     steps:
       #Fetch code from the repository onot runner
       - name: Checkout code 
