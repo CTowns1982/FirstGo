@@ -15,7 +15,7 @@ provider "aws" {
 }
 
 # A simple check resource that doesn't cost money
-resource "aws_vpc" "pipeline_test" {
+resource "aws_vpc" "pipeline_test1" {
   cidr_block = "10.0.0.0/16"
   
   tags = {
