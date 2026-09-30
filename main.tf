@@ -41,6 +41,7 @@ resource "aws_rds_cluster" "postgresql" {
   performance_insights_enabled = true
   performance_insights_retention_period = 465
   preferred_backup_window = "07:00-09:00"
+  db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.aurora_postgres.name
 }
 
 resource "aws_rds_cluster_parameter_group" "aurora_postgres" {
