@@ -47,7 +47,7 @@ resource "aws_rds_cluster" "postgresql" {
 resource "aws_rds_cluster_parameter_group" "aurora_postgres" {
   name        = "aurora-postgres15-custom"
   family      = "aurora-postgresql15"
-  description = "Custom parameter group for Aurora PostgreSQL 15"
+  description = "Custom parameter group for Aurora PostgreSQL 17"
 
   parameter {
     name         = "shared_preload_libraries"
