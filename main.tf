@@ -42,3 +42,33 @@ resource "aws_rds_cluster" "postgresql" {
   performance_insights_retention_period = 465
   preferred_backup_window = "07:00-09:00"
 }
+
+resource "aws_rds_cluster_parameter_group" "aurora_postgres" {
+  name        = "aurora-postgres15-custom"
+  family      = "aurora-postgresql15"
+  description = "Custom parameter group for Aurora PostgreSQL 15"
+
+  parameter {
+    name         = "shared_preload_libraries"
+    value        = "pg_stat_statements,pgaudit"
+    apply_method = "pending-reboot"
+  }
+
+  parameter {
+    name         = "pgaudit.log"
+    value        = "write,ddl,role"
+    apply_method = "immediate"
+  }
+
+  parameter {
+    name         = "log_connections"
+    value        = "1"
+    apply_method = "immediate"
+  }
+
+  parameter {
+    name         = "log_disconnections"
+    value        = "1"
+    apply_method = "immediate"
+  }
+}
