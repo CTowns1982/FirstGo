@@ -33,7 +33,6 @@ resource "aws_rds_cluster" "postgresql" {
   cluster_identifier      = "aurora-cluster-demo"
   engine                  = "aurora-postgresql"
   availability_zones      = ["eu-west-2a", "eu-west-2b", "eu-west-2c"]
-  instance_class = "db.t4g.medium"
   database_name           = "mydb"
   master_username         = "foo"
   master_password         = "12345678"
