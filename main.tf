@@ -45,8 +45,8 @@ resource "aws_rds_cluster" "postgresql" {
 }
 
 resource "aws_rds_cluster_parameter_group" "aurora_postgres" {
-  name        = "aurora-postgres15-custom"
-  family      = "aurora-postgresql15"
+  name        = "aurora-postgres17-custom"
+  family      = "aurora-postgresql17"
   description = "Custom parameter group for Aurora PostgreSQL 17"
 
   parameter {
