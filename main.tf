@@ -37,7 +37,8 @@ resource "aws_rds_cluster" "postgresql" {
   master_username         = "foo"
   master_password         = "12345678"
   backup_retention_period = 5
-  database_insights_mode      = "standard"
-  performance_insights_enabled = false
+  database_insights_mode      = "advanced"
+  performance_insights_enabled = true
+  performance_insights_retention_period = 465
   preferred_backup_window = "07:00-09:00"
 }
