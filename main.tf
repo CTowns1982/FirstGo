@@ -29,28 +29,28 @@ resource "aws_vpc" "pipeline_test1" {
   }
 }
 
-resource "aws_rds_cluster" "postgresql" {
-  cluster_identifier      = "aurora-cluster-demo"
-  engine                  = "aurora-postgresql"
-  availability_zones      = ["eu-west-2a", "eu-west-2b", "eu-west-2c"]
-  database_name           = "mydb"
-  master_username         = "foo"
-  master_password         = "12345678"
-  backup_retention_period = 5
-  database_insights_mode      = "advanced"
-  performance_insights_enabled = true
-  performance_insights_retention_period = 465
-  preferred_backup_window = "07:00-09:00"
-  db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.aurora_postgres.name
-}
+# resource "aws_rds_cluster" "postgresql" {
+#   cluster_identifier      = "aurora-cluster-demo"
+#   engine                  = "aurora-postgresql"
+#   availability_zones      = ["eu-west-2a", "eu-west-2b", "eu-west-2c"]
+#   database_name           = "mydb"
+#   master_username         = "foo"
+#   master_password         = "12345678"
+#   backup_retention_period = 5
+#   database_insights_mode      = "advanced"
+#   performance_insights_enabled = true
+#   performance_insights_retention_period = 465
+#   preferred_backup_window = "07:00-09:00"
+#   db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.aurora_postgres.name
+# }
 
-resource "aws_rds_cluster_instance" "writer" {
-  cluster_identifier = aws_rds_cluster.postgresql.id
-  instance_class     = "db.t4g.medium"
-  engine             = aws_rds_cluster.postgresql.engine
-  engine_version     = aws_rds_cluster.postgresql.engine_version
-  apply_immediately = true
-}
+# resource "aws_rds_cluster_instance" "writer" {
+#   cluster_identifier = aws_rds_cluster.postgresql.id
+#   instance_class     = "db.t4g.medium"
+#   engine             = aws_rds_cluster.postgresql.engine
+#   engine_version     = aws_rds_cluster.postgresql.engine_version
+#   apply_immediately = true
+# }
 
 resource "aws_rds_cluster_parameter_group" "aurora_postgres" {
   name        = "aurora-postgres17-custom"
