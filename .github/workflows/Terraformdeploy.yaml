@@ -48,6 +48,14 @@ jobs:
 
       - name: Terraform Lint
         run: tflint --recursive
+        
+      # Terraform security scanning
+      - name: Checkov Security Scan
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: .
+          framework: terraform
+          soft_fail: false
 
       #Terraform Plan to check for any changes in the infrastructure
       - name: Terraform Plan
