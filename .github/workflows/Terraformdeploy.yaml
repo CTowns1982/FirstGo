@@ -28,6 +28,12 @@ jobs:
         with:
           terraform_version: "1.7.5"
 
+      - name: Check GitHub Context
+        run: |
+          echo "Repository: $GITHUB_REPOSITORY"
+          echo "Branch: $GITHUB_REF"
+          echo "Event: $GITHUB_EVENT_NAME"
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v6.3.0
         with:
