@@ -29,9 +29,9 @@ resource "aws_vpc" "pipeline_test1" {
   }
 }
 
-data "aws_caller_identity" "current" {}
+# data "aws_caller_identity" "current" {}
 
-data "aws_region" "current" {}
+# data "aws_region" "current" {}
 
 resource "aws_default_security_group" "default" {
   vpc_id = aws_vpc.pipeline_test1.id
