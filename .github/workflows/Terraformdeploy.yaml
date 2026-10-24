@@ -28,6 +28,27 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
+      # Check Terraform formatting
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive
+
+      # Validate Terraform configuration
+      - name: Terraform Validate
+        run: terraform validate
+
+      # Install TFLint
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v6
+        with:
+          tflint_version: latest
+
+      # Run TFLint
+      - name: Initialise TFLint
+        run: tflint --init
+
+      - name: Terraform Lint
+        run: tflint --recursive
+
       #Terraform Plan to check for any changes in the infrastructure
       - name: Terraform Plan
         run: terraform plan
