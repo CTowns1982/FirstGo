@@ -41,50 +41,50 @@ resource "aws_default_security_group" "default" {
   }
 }
 
-resource "aws_kms_key" "cloudwatch" {
-  description         = "KMS key for VPC Flow Logs"
-  enable_key_rotation = true
+# resource "aws_kms_key" "cloudwatch" {
+#   description         = "KMS key for VPC Flow Logs"
+#   enable_key_rotation = true
 
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Sid    = "EnableIAMPermissions"
-        Effect = "Allow"
-        Principal = {
-          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
-        }
-        Action   = "kms:*"
-        Resource = "*"
-      },
-      {
-        Sid    = "AllowCloudWatchLogs"
-        Effect = "Allow"
-        Principal = {
-          Service = "logs.${data.aws_region.current.name}.amazonaws.com"
-        }
-        Action = [
-          "kms:Encrypt",
-          "kms:Decrypt",
-          "kms:ReEncrypt*",
-          "kms:GenerateDataKey*",
-          "kms:DescribeKey"
-        ]
-        Resource = "*"
-        Condition = {
-          ArnEquals = {
-            "kms:EncryptionContext:aws:logs:arn" = "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/vpc/pipeline-test"
-          }
-        }
-      }
-    ]
-  })
-}
+#   policy = jsonencode({
+#     Version = "2012-10-17"
+#     Statement = [
+#       {
+#         Sid    = "EnableIAMPermissions"
+#         Effect = "Allow"
+#         Principal = {
+#           AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
+#         }
+#         Action   = "kms:*"
+#         Resource = "*"
+#       },
+#       {
+#         Sid    = "AllowCloudWatchLogs"
+#         Effect = "Allow"
+#         Principal = {
+#           Service = "logs.${data.aws_region.current.name}.amazonaws.com"
+#         }
+#         Action = [
+#           "kms:Encrypt",
+#           "kms:Decrypt",
+#           "kms:ReEncrypt*",
+#           "kms:GenerateDataKey*",
+#           "kms:DescribeKey"
+#         ]
+#         Resource = "*"
+#         Condition = {
+#           ArnEquals = {
+#             "kms:EncryptionContext:aws:logs:arn" = "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/vpc/pipeline-test"
+#           }
+#         }
+#       }
+#     ]
+#   })
+# }
 
 resource "aws_cloudwatch_log_group" "vpc_flow_logs" {
   name              = "/aws/vpc/pipeline-test"
   retention_in_days = 365
-  kms_key_id        = aws_kms_key.cloudwatch.arn
+  # kms_key_id        = aws_kms_key.cloudwatch.arn
 }
 
 resource "aws_iam_role" "vpc_flow_logs" {
@@ -151,32 +151,32 @@ resource "aws_flow_log" "vpc" {
 #   apply_immediately = true
 # }
 
-resource "aws_rds_cluster_parameter_group" "aurora_postgres" {
-  name        = "aurora-postgres17-custom"
-  family      = "aurora-postgresql17"
-  description = "Custom parameter group for Aurora PostgreSQL 17"
+# resource "aws_rds_cluster_parameter_group" "aurora_postgres" {
+#   name        = "aurora-postgres17-custom"
+#   family      = "aurora-postgresql17"
+#   description = "Custom parameter group for Aurora PostgreSQL 17"
 
-  parameter {
-    name         = "shared_preload_libraries"
-    value        = "pg_stat_statements,pgaudit"
-    apply_method = "pending-reboot"
-  }
+#   parameter {
+#     name         = "shared_preload_libraries"
+#     value        = "pg_stat_statements,pgaudit"
+#     apply_method = "pending-reboot"
+#   }
 
-  parameter {
-    name         = "pgaudit.log"
-    value        = "write,ddl,role"
-    apply_method = "immediate"
-  }
+#   parameter {
+#     name         = "pgaudit.log"
+#     value        = "write,ddl,role"
+#     apply_method = "immediate"
+#   }
 
-  parameter {
-    name         = "log_connections"
-    value        = "1"
-    apply_method = "immediate"
-  }
+#   parameter {
+#     name         = "log_connections"
+#     value        = "1"
+#     apply_method = "immediate"
+#   }
 
-  parameter {
-    name         = "log_disconnections"
-    value        = "1"
-    apply_method = "immediate"
-  }
-}
+#   parameter {
+#     name         = "log_disconnections"
+#     value        = "1"
+#     apply_method = "immediate"
+#   }
+# }
