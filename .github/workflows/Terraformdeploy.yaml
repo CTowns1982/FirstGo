@@ -4,10 +4,14 @@ on:
     branches:
       - main
 
-env:
-    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
-    AWS_REGION: eu-west-2
+permissions:
+  id-token: write
+  contents: read
+
+# env:
+#     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
+#     AWS_REGION: eu-west-2
 
 jobs:
   terraform-plan:
@@ -23,6 +27,15 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: "1.7.5"
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v6.3.0
+        with:
+          role-to-assume: arn:aws:iam::454437765757:role/GitHubTerraformDeployRole
+          aws-region: eu-west-2
+
+      - name: Verify AWS Identity
+        run: aws sts get-caller-identity
       
       #Connect to remote backend to store terraform state file
       - name: Terraform Init
@@ -85,6 +98,15 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: "1.7.5"
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v6.3.0
+        with:
+          role-to-assume: arn:aws:iam::454437765757:role/GitHubTerraformDeployRole
+          aws-region: eu-west-2
+
+      - name: Verify AWS Identity
+        run: aws sts get-caller-identity    
 
       - name: Terraform Init
         run: terraform init
